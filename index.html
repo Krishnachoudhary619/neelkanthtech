@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NexaCode — Premium Software Development</title>
+  <title>Neelkanth Tech — Premium Software Development</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1447,6 +1447,103 @@
         gap: 32px;
       }
     }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 9, 10, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      width: 90%;
+      max-width: 440px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.4s cubic-bezier(.25, .46, .45, .94);
+      text-align: center;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: var(--white-dim);
+      font-size: 1.5rem;
+      cursor: none;
+      transition: color 0.3s;
+    }
+
+    .modal-close:hover {
+      color: var(--gold);
+    }
+
+    .modal-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .modal-header p {
+      color: var(--white-dim);
+      margin-bottom: 32px;
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--ink-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .modal-option:hover {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+      transform: translateY(-2px);
+    }
+
+    .modal-option i {
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 
@@ -1845,7 +1942,7 @@
         <p>Tell us about your project and we'll respond within 24 hours with a tailored proposal. No commitment
           required.</p>
         <div class="cta-actions">
-          <a href="mailto:krishna.p.choudhary.20@gmail.com" class="btn-primary">Start a Conversation <i
+          <a href="javascript:void(0)" class="btn-primary" id="contactHeroBtn">Contact Us <i
               class="fas fa-arrow-right"></i></a>
           <a href="#portfolio" class="btn-ghost">Browse Our Work</a>
         </div>
@@ -1899,7 +1996,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 NexaCode. All rights reserved.</p>
+        <p>© 2025 Neelkanth Tech. All rights reserved.</p>
         <div class="footer-bottom-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
@@ -1908,6 +2005,26 @@
       </div>
     </div>
   </footer>
+  <!-- Contact Modal Structure -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal">×</button>
+      <div class="modal-header">
+        <h3>Contact Us</h3>
+        <p>How would you like to reach out?</p>
+      </div>
+      <div class="modal-options">
+        <a href="tel:+917506627003" class="modal-option">
+          <i class="fas fa-phone-alt"></i>
+          <span>Call Us</span>
+        </a>
+        <a href="mailto:krishna.p.choudhary.20@gmail.com" class="modal-option">
+          <i class="fas fa-envelope"></i>
+          <span>Send Email</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script>
     // ── Cursor
@@ -1926,7 +2043,7 @@
       requestAnimationFrame(animCursor);
     })();
 
-    document.querySelectorAll('a, button, .service-card, .port-card').forEach(el => {
+    document.querySelectorAll('a, button, .service-card, .port-card, .modal-option, .modal-close').forEach(el => {
       el.addEventListener('mouseenter', () => {
         cursor.style.width = '18px'; cursor.style.height = '18px';
         ring.style.width = '56px'; ring.style.height = '56px';
@@ -1976,6 +2093,36 @@
       });
     }, { threshold: 0.4 });
     document.querySelectorAll('.metrics-card').forEach(el => barObs.observe(el));
+
+    // ── Contact Modal
+    const modal = document.getElementById('contactModal');
+    const openBtns = [
+      document.getElementById('contactHeroBtn'),
+      document.querySelector('.nav-cta'),
+      document.querySelector('.hero-actions .btn-primary')
+    ];
+    const closeBtn = document.getElementById('closeModal');
+
+    openBtns.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.classList.add('active');
+        });
+      }
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    }
   </script>
 </body>
 

@@ -993,7 +993,12 @@
     .port-thumb-inner {
       width: 100%;
       height: 100%;
+      object-fit: cover;
       transition: transform 0.5s;
+    }
+
+    .port-thumb-contain .port-thumb-inner {
+      object-fit: contain;
     }
 
     .port-card:hover .port-thumb-inner {
@@ -1879,7 +1884,8 @@
         <div class="portfolio-grid">
           <div class="port-card reveal reveal-delay-1">
             <div class="port-thumb">
-              <div class="port-thumb-inner" style="background: url('wealth-rakshak.png') center/cover no-repeat;"></div>
+              <img src="wealth-rakshak.png" alt="Wealth Rakshak FinTech investment platform developed by Neelkanth Tech"
+                class="port-thumb-inner">
               <div class="port-overlay">
                 <a href="https://www.wealthrakshak.in/" target="_blank" class="port-overlay-btn">View Project</a>
               </div>
@@ -1893,7 +1899,8 @@
           </div>
           <div class="port-card reveal reveal-delay-2">
             <div class="port-thumb">
-              <div class="port-thumb-inner" style="background: url('bhavv.png') center/cover no-repeat;"></div>
+              <img src="bhavv.png" alt="Bhavv AI automated trading and Nifty options platform by Neelkanth Tech"
+                class="port-thumb-inner">
               <div class="port-overlay">
                 <a href="https://play.google.com/store/apps/details?id=com.bhavv.app" target="_blank"
                   class="port-overlay-btn">View Project</a>
@@ -1909,8 +1916,9 @@
             </div>
           </div>
           <div class="port-card reveal reveal-delay-3">
-            <div class="port-thumb" style="padding: 20px; background: var(--surface-2);">
-              <div class="port-thumb-inner" style="background: url('bae.png') left center / contain no-repeat;"></div>
+            <div class="port-thumb port-thumb-contain" style="padding: 20px; background: var(--surface-2);">
+              <img src="bae.png" alt="Books Bae sustainable book-sharing community mobile app by Neelkanth Tech"
+                class="port-thumb-inner">
               <div class="port-overlay">
                 <a href="https://play.google.com/store/apps/details?id=com.booksbae.mobileapp" target="_blank"
                   class="port-overlay-btn">View Project</a>
